@@ -2,7 +2,7 @@ use std::net::TcpListener;
 
 use mail_client::configuration::get_configuration;
 use mail_client::startup::run;
-use sqlx::{Connection, PgPool};
+use sqlx::PgPool;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
