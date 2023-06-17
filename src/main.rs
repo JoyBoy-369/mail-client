@@ -1,9 +1,13 @@
 use std::net::TcpListener;
 
-use mail_client::run;
+use mail_client::configuration::get_configuration;
+use mail_client::startup::run;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
-    let listener = TcpListener::bind("127.0.0.1:8000").expect("Failed to bind random port");
+    // Panic if we can't read config
+    let configuration = get_configuration().expect("Failed to read configuration");
+    let address = format!("127.0.0.1:{}", configuration.application_port);
+    let listener = TcpListener::bind(address)?;
     run(listener)?.await
 }
